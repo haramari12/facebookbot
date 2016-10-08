@@ -6,7 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-module.exports = router;
 router.get('/webhook', function(req,res){
 	if(req.query['hub.verify_token']==='abc123'){
 		res.send(req.query['hub.challenge']);
@@ -51,6 +50,7 @@ router.post('/webhook/', function (req, res) {
 	const events = req.body.entry[0].messaging;
 	for (i = 0; i < events.length; i++) {
 		const event = req.body.entry[0].messaging[i];
+		const sender = event.sender.id;
 		if (event.message && event.message.text) {
 			const text = event.message.text;
 			console.log(text)
@@ -59,6 +59,8 @@ router.post('/webhook/', function (req, res) {
 	}
 	res.sendStatus(200);
 });
+
+module.exports = router;
 
 
 
