@@ -28,7 +28,7 @@ res.sendStatus(200);
 });
 var request=require('request')
 const ACCESS_TOKEN=process.env.FB_ACCESS_TOKEN
-function sendTextMessage(sender,test){
+function sendTextMessage(sender,text){
 	request({
 		url:'https://graph.facebook.com/v2.6/me/messages',
 		qs:{access_token:ACCESS_TOKEN}, 
@@ -39,7 +39,7 @@ function sendTextMessage(sender,test){
 		}
 	},function(error,response,body){
 		if (error){
-			concole.log('Error sending message:', error);
+			console.log('Error sending message:', error);
 		}else if (response.body.error){
 			console.log('Error:',response.body.error);
 		}
