@@ -1,3 +1,4 @@
+var request=require('request')
 var express = require('express');
 var router = express.Router();
 
@@ -14,19 +15,7 @@ router.get('/webhook', function(req,res){
 	}
 });
 
-router.post('/webhook/',function(req,res){
-	const events = req.body.entry[0].messaging;
-	for (i=0; i< events.length;i++){
-		const event = req.body.entry[0].messaging[i];
-		if(event.message && event.message.text){
-			const test= event.message.text;
-			console.log(test)
-		}
 
-	}
-res.sendStatus(200);
-});
-var request=require('request')
 const ACCESS_TOKEN=process.env.FB_ACCESS_TOKEN
 
 function sendTextMessage(sender,text){
@@ -39,7 +28,7 @@ function sendTextMessage(sender,text){
 		method:'POST',
 		json:{
 			recipient: {id:sender},
-			message:{text:text}
+			message:{text:text+"dekita"}
 		}
 	}, function(error,response,body){
 		if (error){
@@ -49,7 +38,7 @@ function sendTextMessage(sender,text){
 		}
 	});
 }
-router.post('/webhook/', function (req, res) {
+router.post('/webhook', function (req, res) {
 	const events = req.body.entry[0].messaging;
 	for (i = 0; i < events.length; i++) {
 		const event = req.body.entry[0].messaging[i];
